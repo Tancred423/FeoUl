@@ -26,8 +26,8 @@ public class SignupCommand {
                     new EmbedBuilder()
                             .setColor(color)
                             .setTitle("\uD83D\uDD0E Signup")
-                            .addField("Command", "`feo signup [title], [time], [roles and/or jobs]`", false)
-                            .addField("Example", "`feo signup Titania Ex, 1d 12h 30m, 2tank 1whm 1heal 2mdps 2rdps`", false)
+                            .addField("Command", "`feo signup [title] / [time] / [roles and/or jobs]`", false)
+                            .addField("Example", "`feo signup Titania Ex / 1d 12h 30m / 2tank 1whm 1heal 2mdps 2rdps`", false)
                             .addField("Times",
                                     "d = day(s)\n" +
                                             "h = hour(s)\n" +
@@ -64,7 +64,8 @@ public class SignupCommand {
 
                                             "blm = " + Feo.emotes.get("blm").getAsMention() + " Black Mage\n" +
                                             "smn = " + Feo.emotes.get("smn").getAsMention() + " Summoner\n" +
-                                            "rdm = " + Feo.emotes.get("rdm").getAsMention() + " Red Mage",
+                                            "rdm = " + Feo.emotes.get("rdm").getAsMention() + " Red Mage\n" +
+                                            "blu = " + Feo.emotes.get("blu").getAsMention() + " Blue Mage",
                                     true)
                             .build()
             ).queue();
