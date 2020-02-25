@@ -27,7 +27,8 @@ public class GuildMessageReactionRemoveListener extends ListenerAdapter {
             return;
 
         // User has to react with valid emote
-        if (Feo.emotes.containsValue(event.getReactionEmote().getEmote())) {
+        if (event.getReactionEmote().isEmote() &&
+                Feo.emotes.containsValue(event.getReactionEmote().getEmote())) {
             // Reaction emote is valid for this signup
             var reactionEmote = event.getReactionEmote().getEmote();
             var roleJobName = "";

@@ -23,22 +23,21 @@ public class GuildMessageReceiveListener extends ListenerAdapter {
 
         var content = event.getMessage().getContentRaw().trim();
         if (content.startsWith(Feo.prefix)) {
+            var missingPermissions = getMissingPermissions(event);
+            if (missingPermissions != null) {
+                var sb = new StringBuilder().append("❌ **Insufficient Permissions**\n")
+                        .append("I am missing the following permissions:\n");
+                for (var permission : missingPermissions) sb.append(permission.getName()).append("\n");
+                event.getChannel().sendMessage(sb.toString()).queue();
+                return;
+            }
+
+
             var contentSplit = content.substring(Feo.prefix.length()).trim().split(" ");
             var command = contentSplit[0];
             var args = Arrays.copyOfRange(contentSplit, 1, contentSplit.length);
             var member = event.getMember();
             if (member != null) {
-                var missingPermissions = getMissingPermissions(event);
-                if (missingPermissions != null) {
-                    var embed = new EmbedBuilder()
-                            .setColor(member.getColor())
-                            .setTitle("❌ Insufficient Permissions")
-                            .setDescription("I am missing the following permissions:\n");
-                    for (var permission : missingPermissions) embed.appendDescription(permission.getName() + "\n");
-                    event.getChannel().sendMessage(embed.build()).queue();
-                    return;
-                }
-
                 switch (command.toLowerCase()) {
                     case "ping":
                     case "pong":
