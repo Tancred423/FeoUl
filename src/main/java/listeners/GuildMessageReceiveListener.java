@@ -6,8 +6,8 @@ import commands.PingCommand;
 import commands.SignupCommand;
 import commands.ThreadCommand;
 import feo.Feo;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -23,7 +23,10 @@ public class GuildMessageReceiveListener extends ListenerAdapter {
 
         var content = event.getMessage().getContentRaw().trim();
         if (content.startsWith(Feo.prefix)) {
-            var missingPermissions = getMissingPermissions(event);
+            // Only act if Feo has enough permissions
+            var selfMember = event.getGuild().getMember(event.getJDA().getSelfUser());
+            if (selfMember == null) return;
+            var missingPermissions = getMissingPermissions(selfMember);
             if (missingPermissions != null) {
                 var sb = new StringBuilder().append("❌ **Insufficient Permissions**\n")
                         .append("I am missing the following permissions:\n");
@@ -63,10 +66,7 @@ public class GuildMessageReceiveListener extends ListenerAdapter {
         }
     }
 
-    private List<Permission> getMissingPermissions(GuildMessageReceivedEvent event) {
-        var selfMember = event.getGuild().getMemberById(event.getJDA().getSelfUser().getIdLong());
-        if (selfMember == null) return null;
-
+    public static List<Permission> getMissingPermissions(Member selfMember) {
         var missingPermissions = new ArrayList<Permission>();
 
         if (!selfMember.hasPermission(Permission.VIEW_CHANNEL)) missingPermissions.add(Permission.VIEW_CHANNEL);

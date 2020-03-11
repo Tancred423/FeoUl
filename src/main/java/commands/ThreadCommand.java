@@ -12,7 +12,7 @@ import java.lang.management.ManagementFactory;
 public class ThreadCommand {
     public static void run(GuildMessageReceivedEvent event, Member member, String[] args) {
         var fixedThreadPool = new ThreadPoolDescription(Feo.fixedThreadPool.toString());
-        var remindMeService = new ThreadPoolDescription(Feo.signupService.toString());
+        var signupService = new ThreadPoolDescription(Feo.signupService.toString());
 
         event.getChannel().sendMessage(new EmbedBuilder()
                 .setColor(member.getColor())
@@ -30,11 +30,11 @@ public class ThreadCommand {
                         "\nQueued Tasks: " + fixedThreadPool.getQueuedTasks() +
                         "\nCompleted Tasks: " + fixedThreadPool.getCompletedTasks(), true)
 
-                .addField("RemindMe Service", "Is Running: " + remindMeService.isRunning() +
-                        "\nPool Size: " + remindMeService.getPoolSize() +
-                        "\nActive Threads: " + remindMeService.getActiveThreads() +
-                        "\nQueued Tasks: " + remindMeService.getQueuedTasks() +
-                        "\nCompleted Tasks: " + remindMeService.getCompletedTasks(), true)
+                .addField("Signup Service", "Is Running: " + signupService.isRunning() +
+                        "\nPool Size: " + signupService.getPoolSize() +
+                        "\nActive Threads: " + signupService.getActiveThreads() +
+                        "\nQueued Tasks: " + signupService.getQueuedTasks() +
+                        "\nCompleted Tasks: " + signupService.getCompletedTasks(), true)
                 .build()
         ).queue();
     }

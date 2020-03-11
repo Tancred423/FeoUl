@@ -4,6 +4,7 @@ package feo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.User;
+import util.Emotes;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -609,7 +610,7 @@ public class Signup {
         // Check role/job specific spots
         if (!roleJobName.equals("fill")) {
             Connection connection = null;
-            var isValidReaction = false;
+            var emotes = Emotes.get(jda);
 
             try {
                 connection = Feo.db.getHikari().getConnection();
@@ -620,7 +621,7 @@ public class Signup {
                                 "AND emoteid=?"
                 );
                 select.setLong(1, messageId);
-                select.setLong(2, Feo.emotes.get(roleJobName).getIdLong());
+                select.setLong(2, emotes.get(roleJobName).getIdLong());
                 var resultSet = select.executeQuery();
                 if (resultSet.first()) {
                     if (resultSet.getFetchSize() >= getProperties().get(roleJobName))
@@ -663,12 +664,14 @@ public class Signup {
                     var footer = currentEmbed.getFooter();
                     if (footer != null) newEmbed.setFooter(footer.getText(), footer.getIconUrl());
 
+                    var emotes = Emotes.get(jda);
+
                     var fields = currentEmbed.getFields();
                     for (var field : fields) {
                         var fieldName = field.getName();
                         if (fieldName != null && fieldName.equalsIgnoreCase("spots left")) {
                             newEmbed.addField(fieldName, spotsLeft + "/" + getTotalSpots(), false);
-                        } else if (fieldName != null && fieldName.contains(Feo.emotes.get(roleJobName).getId())) {
+                        } else if (fieldName != null && fieldName.contains(emotes.get(roleJobName).getId())) {
                             var fieldValue = field.getValue();
                             if (fieldValue != null) {
                                 var hasNobody = field.getValue().equalsIgnoreCase("nobody");
@@ -866,12 +869,14 @@ public class Signup {
                     var footer = currentEmbed.getFooter();
                     if (footer != null) newEmbed.setFooter(footer.getText(), footer.getIconUrl());
 
+                    var emotes = Emotes.get(jda);
+
                     var fields = currentEmbed.getFields();
                     for (var field : fields) {
                         var fieldName = field.getName();
                         if (fieldName != null && fieldName.equalsIgnoreCase("spots left")) {
                             newEmbed.addField(fieldName, spotsLeft + "/" + getTotalSpots(), false);
-                        } else if (fieldName != null && fieldName.contains(Feo.emotes.get(roleJobName).getId())) {
+                        } else if (fieldName != null && fieldName.contains(emotes.get(roleJobName).getId())) {
                             var fieldValue = field.getValue();
                             if (fieldValue != null) {
                                 var hasNobody = field.getValue().equalsIgnoreCase("nobody");

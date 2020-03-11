@@ -4,14 +4,13 @@ package feo;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Database {
     private HikariDataSource hikari;
 
-    boolean connectToDatabase() throws IOException {
+    boolean connectToDatabase() {
         var resourcesDir = System.getProperty("user.dir") + "/resources";
         var hikariConfig = new HikariConfig(resourcesDir + "/db.ini");
         try {

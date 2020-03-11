@@ -2,17 +2,17 @@
 package commands;
 
 import feo.Feo;
+import feo.Signup;
 import feo.SignupEndTask;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import util.Emotes;
 import util.Error;
 import util.RoleJobs;
-import feo.Signup;
 
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class SignupCommand {
@@ -22,6 +22,7 @@ public class SignupCommand {
 
         // Usage
         if (args.length == 0) {
+            var emotes = Emotes.get(event.getJDA());
             event.getChannel().sendMessage(
                     new EmbedBuilder()
                             .setColor(color)
@@ -35,37 +36,37 @@ public class SignupCommand {
                                     true)
 
                             .addField("Roles",
-                                    "tank = " + Feo.emotes.get("tank").getAsMention() + " Tank\n" +
-                                            "heal = " + Feo.emotes.get("heal").getAsMention() + " Healer\n" +
-                                            "dps = " + Feo.emotes.get("dps").getAsMention() + " DPS\n" +
-                                            "mdps = " + Feo.emotes.get("mdps").getAsMention() + " Melee DPS\n" +
-                                            "rdps = " + Feo.emotes.get("rdps").getAsMention() + " Ranged DPS\n" +
-                                            "cdps = " + Feo.emotes.get("cdps").getAsMention() + " Caster DPS\n",
+                                    "tank = " + emotes.get("tank").getAsMention() + " Tank\n" +
+                                            "heal = " + emotes.get("heal").getAsMention() + " Healer\n" +
+                                            "dps = " + emotes.get("dps").getAsMention() + " DPS\n" +
+                                            "mdps = " + emotes.get("mdps").getAsMention() + " Melee DPS\n" +
+                                            "rdps = " + emotes.get("rdps").getAsMention() + " Ranged DPS\n" +
+                                            "cdps = " + emotes.get("cdps").getAsMention() + " Caster DPS\n",
                                     true)
 
                             .addField("Jobs",
-                                    "pld = " + Feo.emotes.get("pld").getAsMention() + " Paladin\n" +
-                                            "war = " + Feo.emotes.get("war").getAsMention() + " Warrior\n" +
-                                            "drk = " + Feo.emotes.get("drk").getAsMention() + " Dark Knight\n" +
-                                            "gnb = " + Feo.emotes.get("gnb").getAsMention() + " Gunbreaker\n" +
+                                    "pld = " + emotes.get("pld").getAsMention() + " Paladin\n" +
+                                            "war = " + emotes.get("war").getAsMention() + " Warrior\n" +
+                                            "drk = " + emotes.get("drk").getAsMention() + " Dark Knight\n" +
+                                            "gnb = " + emotes.get("gnb").getAsMention() + " Gunbreaker\n" +
 
-                                            "whm = " + Feo.emotes.get("whm").getAsMention() + " White Mage\n" +
-                                            "sch = " + Feo.emotes.get("sch").getAsMention() + " Scholar\n" +
-                                            "ast = " + Feo.emotes.get("ast").getAsMention() + " Astrologian\n" +
+                                            "whm = " + emotes.get("whm").getAsMention() + " White Mage\n" +
+                                            "sch = " + emotes.get("sch").getAsMention() + " Scholar\n" +
+                                            "ast = " + emotes.get("ast").getAsMention() + " Astrologian\n" +
 
-                                            "mnk = " + Feo.emotes.get("mnk").getAsMention() + " Monk\n" +
-                                            "drg = " + Feo.emotes.get("drg").getAsMention() + " Dragoon\n" +
-                                            "nin = " + Feo.emotes.get("nin").getAsMention() + " Ninja\n" +
-                                            "sam = " + Feo.emotes.get("sam").getAsMention() + " Samurai\n" +
+                                            "mnk = " + emotes.get("mnk").getAsMention() + " Monk\n" +
+                                            "drg = " + emotes.get("drg").getAsMention() + " Dragoon\n" +
+                                            "nin = " + emotes.get("nin").getAsMention() + " Ninja\n" +
+                                            "sam = " + emotes.get("sam").getAsMention() + " Samurai\n" +
 
-                                            "brd = " + Feo.emotes.get("brd").getAsMention() + " Bard\n" +
-                                            "mch = " + Feo.emotes.get("mch").getAsMention() + " Mechanist\n" +
-                                            "dnc = " + Feo.emotes.get("dnc").getAsMention() + " Dancer\n" +
+                                            "brd = " + emotes.get("brd").getAsMention() + " Bard\n" +
+                                            "mch = " + emotes.get("mch").getAsMention() + " Mechanist\n" +
+                                            "dnc = " + emotes.get("dnc").getAsMention() + " Dancer\n" +
 
-                                            "blm = " + Feo.emotes.get("blm").getAsMention() + " Black Mage\n" +
-                                            "smn = " + Feo.emotes.get("smn").getAsMention() + " Summoner\n" +
-                                            "rdm = " + Feo.emotes.get("rdm").getAsMention() + " Red Mage\n" +
-                                            "blu = " + Feo.emotes.get("blu").getAsMention() + " Blue Mage",
+                                            "blm = " + emotes.get("blm").getAsMention() + " Black Mage\n" +
+                                            "smn = " + emotes.get("smn").getAsMention() + " Summoner\n" +
+                                            "rdm = " + emotes.get("rdm").getAsMention() + " Red Mage\n" +
+                                            "blu = " + emotes.get("blu").getAsMention() + " Blue Mage",
                                     true)
                             .build()
             ).queue();
@@ -267,9 +268,10 @@ public class SignupCommand {
 
         var countProps = signup.getProperties();
 
+        var emotes = Emotes.get(event.getJDA());
         for (var countProp : countProps.entrySet()) {
             if (countProp.getValue() == 0) continue;
-            var description = "**" + countProp.getValue() + "x** " + Feo.emotes.get(countProp.getKey()).getAsMention() + " " + RoleJobs.getFancyName(countProp.getKey()) + "\n";
+            var description = "**" + countProp.getValue() + "x** " + emotes.get(countProp.getKey()).getAsMention() + " " + RoleJobs.getFancyName(countProp.getKey()) + "\n";
             embed.addField(description, "Nobody", true);
         }
 
@@ -290,7 +292,7 @@ public class SignupCommand {
         channel.sendMessage(embed.build()).queue(msg -> {
             for (var countProp : countProps.entrySet()) {
                 if (countProp.getValue() == 0) continue;
-                msg.addReaction(Feo.emotes.get(countProp.getKey())).queue();
+                msg.addReaction(emotes.get(countProp.getKey())).queue();
             }
             msg.addReaction(fillEmote).queue();
             msg.addReaction("❌").queue();

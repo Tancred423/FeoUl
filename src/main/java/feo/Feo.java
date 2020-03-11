@@ -7,12 +7,10 @@ import listeners.GuildMessageReactionRemoveListener;
 import listeners.GuildMessageReceiveListener;
 import listeners.ReadyListener;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -23,7 +21,6 @@ public class Feo {
     public static ExecutorService fixedThreadPool;
     public static ScheduledExecutorService signupService;
     public static Database db;
-    public static HashMap<String, Emote> emotes;
 
     public static void main(String[] args) throws IOException, LoginException {
         // Config
