@@ -32,7 +32,7 @@ public class ReadyListener extends ListenerAdapter {
         // Signup
         startSignup(event.getJDA());
 
-        System.out.println("Ready!");
+        System.out.println(event.getJDA().getSelfUser().getName() + " ready!");
     }
 
     private void startSignup(JDA jda) {

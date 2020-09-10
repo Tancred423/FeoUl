@@ -362,42 +362,40 @@ public class Signup {
             var select = connection.prepareStatement("SELECT * FROM signup WHERE messageid=?");
             select.setLong(1, messageId);
             var resultSet = select.executeQuery();
-            if (resultSet.first()) {
-                do {
-                    this.guildId = resultSet.getLong("guildid");
-                    this.channelId = resultSet.getLong("channelid");
-                    this.authorId = resultSet.getLong("authorid");
-                    this.eventTime = resultSet.getTimestamp("eventtime");
+            while (resultSet.next()) {
+                this.guildId = resultSet.getLong("guildid");
+                this.channelId = resultSet.getLong("channelid");
+                this.authorId = resultSet.getLong("authorid");
+                this.eventTime = resultSet.getTimestamp("eventtime");
 
-                    this.tank = resultSet.getInt("tank");
-                    this.pld = resultSet.getInt("pld");
-                    this.war = resultSet.getInt("war");
-                    this.drk = resultSet.getInt("drk");
-                    this.gnb = resultSet.getInt("gnb");
+                this.tank = resultSet.getInt("tank");
+                this.pld = resultSet.getInt("pld");
+                this.war = resultSet.getInt("war");
+                this.drk = resultSet.getInt("drk");
+                this.gnb = resultSet.getInt("gnb");
 
-                    this.heal = resultSet.getInt("heal");
-                    this.whm = resultSet.getInt("whm");
-                    this.sch = resultSet.getInt("sch");
-                    this.ast = resultSet.getInt("ast");
+                this.heal = resultSet.getInt("heal");
+                this.whm = resultSet.getInt("whm");
+                this.sch = resultSet.getInt("sch");
+                this.ast = resultSet.getInt("ast");
 
-                    this.dps = resultSet.getInt("dps");
-                    this.mdps = resultSet.getInt("mdps");
-                    this.mnk = resultSet.getInt("mnk");
-                    this.drg = resultSet.getInt("drg");
-                    this.nin = resultSet.getInt("nin");
-                    this.sam = resultSet.getInt("sam");
+                this.dps = resultSet.getInt("dps");
+                this.mdps = resultSet.getInt("mdps");
+                this.mnk = resultSet.getInt("mnk");
+                this.drg = resultSet.getInt("drg");
+                this.nin = resultSet.getInt("nin");
+                this.sam = resultSet.getInt("sam");
 
-                    this.rdps = resultSet.getInt("rdps");
-                    this.brd = resultSet.getInt("brd");
-                    this.mch = resultSet.getInt("mch");
-                    this.dnc = resultSet.getInt("dnc");
+                this.rdps = resultSet.getInt("rdps");
+                this.brd = resultSet.getInt("brd");
+                this.mch = resultSet.getInt("mch");
+                this.dnc = resultSet.getInt("dnc");
 
-                    this.cdps = resultSet.getInt("cdps");
-                    this.blm = resultSet.getInt("blm");
-                    this.smn = resultSet.getInt("smn");
-                    this.rdm = resultSet.getInt("rdm");
-                    this.blu = resultSet.getInt("blu");
-                } while (resultSet.next());
+                this.cdps = resultSet.getInt("cdps");
+                this.blm = resultSet.getInt("blm");
+                this.smn = resultSet.getInt("smn");
+                this.rdm = resultSet.getInt("rdm");
+                this.blu = resultSet.getInt("blu");
             }
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#initialize"));
@@ -414,46 +412,45 @@ public class Signup {
             connection = Feo.db.getHikari().getConnection();
             var select = connection.prepareStatement("SELECT * FROM signup");
             var resultSet = select.executeQuery();
-            if (resultSet.first()) {
-                do {
-                    var signup = new Signup(resultSet.getLong("messageid"));
 
-                    signup.setGuildId(resultSet.getLong("guildid"));
-                    signup.setChannelId(resultSet.getLong("channelid"));
-                    signup.setAuthorId(resultSet.getLong("authorid"));
-                    signup.setEventTime(resultSet.getTimestamp("eventtime"));
+            while (resultSet.next()) {
+                var signup = new Signup(resultSet.getLong("messageid"));
 
-                    signup.setTank(resultSet.getInt("tank"));
-                    signup.setPld(resultSet.getInt("pld"));
-                    signup.setWar(resultSet.getInt("war"));
-                    signup.setDrk(resultSet.getInt("drk"));
-                    signup.setGnb(resultSet.getInt("gnb"));
+                signup.setGuildId(resultSet.getLong("guildid"));
+                signup.setChannelId(resultSet.getLong("channelid"));
+                signup.setAuthorId(resultSet.getLong("authorid"));
+                signup.setEventTime(resultSet.getTimestamp("eventtime"));
 
-                    signup.setHeal(resultSet.getInt("heal"));
-                    signup.setWhm(resultSet.getInt("whm"));
-                    signup.setSch(resultSet.getInt("sch"));
-                    signup.setAst(resultSet.getInt("ast"));
+                signup.setTank(resultSet.getInt("tank"));
+                signup.setPld(resultSet.getInt("pld"));
+                signup.setWar(resultSet.getInt("war"));
+                signup.setDrk(resultSet.getInt("drk"));
+                signup.setGnb(resultSet.getInt("gnb"));
 
-                    signup.setDps(resultSet.getInt("dps"));
-                    signup.setMdps(resultSet.getInt("mdps"));
-                    signup.setMnk(resultSet.getInt("mnk"));
-                    signup.setDrg(resultSet.getInt("drg"));
-                    signup.setNin(resultSet.getInt("nin"));
-                    signup.setSam(resultSet.getInt("sam"));
+                signup.setHeal(resultSet.getInt("heal"));
+                signup.setWhm(resultSet.getInt("whm"));
+                signup.setSch(resultSet.getInt("sch"));
+                signup.setAst(resultSet.getInt("ast"));
 
-                    signup.setRdps(resultSet.getInt("rdps"));
-                    signup.setBrd(resultSet.getInt("brd"));
-                    signup.setMch(resultSet.getInt("mch"));
-                    signup.setDnc(resultSet.getInt("dnc"));
+                signup.setDps(resultSet.getInt("dps"));
+                signup.setMdps(resultSet.getInt("mdps"));
+                signup.setMnk(resultSet.getInt("mnk"));
+                signup.setDrg(resultSet.getInt("drg"));
+                signup.setNin(resultSet.getInt("nin"));
+                signup.setSam(resultSet.getInt("sam"));
 
-                    signup.setCdps(resultSet.getInt("cdps"));
-                    signup.setBlm(resultSet.getInt("blm"));
-                    signup.setSmn(resultSet.getInt("smn"));
-                    signup.setRdm(resultSet.getInt("rdm"));
-                    signup.setBlu(resultSet.getInt("blu"));
+                signup.setRdps(resultSet.getInt("rdps"));
+                signup.setBrd(resultSet.getInt("brd"));
+                signup.setMch(resultSet.getInt("mch"));
+                signup.setDnc(resultSet.getInt("dnc"));
 
-                    signups.add(signup);
-                } while (resultSet.next());
+                signup.setCdps(resultSet.getInt("cdps"));
+                signup.setBlm(resultSet.getInt("blm"));
+                signup.setSmn(resultSet.getInt("smn"));
+                signup.setRdm(resultSet.getInt("rdm"));
+                signup.setBlu(resultSet.getInt("blu"));
+
+                signups.add(signup);
             }
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#getList"));
@@ -543,7 +540,7 @@ public class Signup {
             );
             select.setLong(1, messageId);
             var resultSet = select.executeQuery();
-            if (resultSet.first()) isSignup = true;
+            if (resultSet.next()) isSignup = true;
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#isSignup"));
         } finally {
@@ -594,7 +591,7 @@ public class Signup {
             );
             select.setLong(1, messageId);
             var resultSet = select.executeQuery();
-            if (resultSet.first()) if (resultSet.getInt(key) > 0) isValidReaction = true;
+            if (resultSet.next()) if (resultSet.getInt(key) > 0) isValidReaction = true;
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#isValidReaction"));
         } finally {
@@ -623,7 +620,7 @@ public class Signup {
                 select.setLong(1, messageId);
                 select.setLong(2, emotes.get(roleJobName).getIdLong());
                 var resultSet = select.executeQuery();
-                if (resultSet.first()) {
+                if (resultSet.next()) {
                     if (resultSet.getFetchSize() >= getProperties().get(roleJobName))
                         hasFreeSpot = false;
                 }
@@ -757,7 +754,7 @@ public class Signup {
             select.setLong(1, messageId);
             select.setLong(2, userId);
             var resultSet = select.executeQuery();
-            hasEntry = resultSet.first();
+            hasEntry = resultSet.next();
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#entryHasEntry"));
         } finally {
@@ -812,7 +809,7 @@ public class Signup {
             );
             select.setLong(1, messageId);
             var resultSet = select.executeQuery();
-            hasEntry = resultSet.first();
+            hasEntry = resultSet.next();
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#spotsHasEntry"));
         } finally {
@@ -835,7 +832,7 @@ public class Signup {
             );
             select.setLong(1, messageId);
             var resultSet = select.executeQuery();
-            if (resultSet.first()) spotsLeft = resultSet.getInt("spots");
+            if (resultSet.next()) spotsLeft = resultSet.getInt("spots");
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#getSpotsLeft"));
         } finally {
@@ -919,7 +916,7 @@ public class Signup {
             select.setLong(1, messageId);
             select.setLong(2, userId);
             var resultSet = select.executeQuery();
-            if (resultSet.first()) emoteId = resultSet.getLong("emoteid");
+            if (resultSet.next()) emoteId = resultSet.getLong("emoteid");
         } catch (SQLException e) {
             Feo.fixedThreadPool.submit(new LoggingTask(e, jda, "Signup#getEntryEmoteId"));
         } finally {

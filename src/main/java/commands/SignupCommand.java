@@ -19,7 +19,6 @@ public class SignupCommand {
     public static void run(GuildMessageReceivedEvent event, Member member, String[] args) {
         var color = member.getColor();
         var channel = event.getChannel();
-
         // Usage
         if (args.length == 0) {
             var emotes = Emotes.get(event.getJDA());
